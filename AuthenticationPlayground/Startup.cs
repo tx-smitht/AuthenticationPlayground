@@ -35,6 +35,8 @@ namespace AuthenticationPlayground
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            // This is what gives us password policies!! How we modify the password requirements
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
@@ -46,6 +48,7 @@ namespace AuthenticationPlayground
                 options.Password.RequiredUniqueChars = 3;
             });
 
+            // This is how I enabled login thru google.
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {

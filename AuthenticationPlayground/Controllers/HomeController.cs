@@ -1,4 +1,5 @@
 ﻿using AuthenticationPlayground.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -22,7 +23,9 @@ namespace AuthenticationPlayground.Controllers
         {
             return View();
         }
-
+        
+        // This line is what gives us page authorization for the privacy page. Forces you to log in. 
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();
