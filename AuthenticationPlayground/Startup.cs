@@ -99,6 +99,22 @@ namespace AuthenticationPlayground
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            // Added X-XSS Protection Header. Not supported by Firefox
+
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("X-Xss-Protection", "1");
+                await next();
+            });
+
+            // CSP Header
+            app.Use(async (ctx, next) =>
+            {
+                ctx.Response.Headers.Add("Content-Security-Policy",
+                "default-src 'self'; style-src fonts.googleapis.com; font-src fonts.gstatic.com");
+                await next();
+            });
         }
     }
 }
